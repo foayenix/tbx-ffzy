@@ -1,0 +1,19 @@
+{
+  "name": "football-frenzy",
+  "version": "1.0.0",
+  "description": "Fast-paced fantasy football game",
+  "scripts": {
+    "install-all": "cd backend && npm install && cd ../frontend && npm install",
+    "start-backend": "cd backend && npm start",
+    "start-frontend": "cd frontend && npm start",
+    "dev": "echo 'Run npm start in backend/ and frontend/ directories separately'"
+  },
+  "keywords": [
+    "fantasy",
+    "football",
+    "game",
+    "soccer"
+  ],
+  "author": "",
+  "license": "MIT"
+}

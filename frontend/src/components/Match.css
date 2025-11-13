@@ -1,0 +1,251 @@
+.match {
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.match-header {
+  text-align: center;
+  padding: 32px;
+}
+
+.match-status {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.live-badge {
+  background: #ff0000;
+  color: white;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-weight: 600;
+  font-size: 14px;
+  animation: pulse 2s ease-in-out infinite;
+}
+
+.finished-badge {
+  background: #38ef7d;
+  color: white;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.minute {
+  font-size: 20px;
+  font-weight: 600;
+  font-family: 'Courier New', monospace;
+}
+
+.scoreboard {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 32px;
+  margin: 32px 0;
+}
+
+.team {
+  flex: 1;
+  max-width: 300px;
+  text-align: center;
+}
+
+.team-name {
+  font-size: 18px;
+  opacity: 0.8;
+  margin-bottom: 12px;
+}
+
+.score {
+  font-size: 64px;
+  font-weight: bold;
+  line-height: 1;
+  margin-bottom: 8px;
+}
+
+.points {
+  font-size: 20px;
+  opacity: 0.7;
+}
+
+.vs {
+  font-size: 24px;
+  font-weight: bold;
+  opacity: 0.5;
+}
+
+.match-result {
+  margin-top: 32px;
+}
+
+.winner-banner {
+  padding: 24px;
+  border-radius: 12px;
+  font-size: 32px;
+  font-weight: bold;
+  animation: slideInDown 0.5s ease-out;
+}
+
+.winner-banner.win {
+  background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+}
+
+.winner-banner.loss {
+  background: linear-gradient(135deg, #eb3349 0%, #f45c43 100%);
+  font-size: 24px;
+}
+
+.winner-banner.draw {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+@keyframes slideInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.boosts-section {
+  margin: 32px 0;
+  padding: 24px;
+}
+
+.boosts-section h3 {
+  font-size: 24px;
+  margin-bottom: 16px;
+  text-align: center;
+}
+
+.boosts-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 16px;
+}
+
+.boost-card {
+  background: rgba(255, 255, 255, 0.05);
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  border-radius: 12px;
+  padding: 20px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-align: center;
+}
+
+.boost-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(255, 255, 255, 0.4);
+}
+
+.boost-card.selected {
+  border-color: #38ef7d;
+  background: rgba(56, 239, 125, 0.1);
+}
+
+.boost-icon {
+  font-size: 48px;
+  margin-bottom: 12px;
+}
+
+.boost-name {
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.boost-description {
+  font-size: 14px;
+  opacity: 0.8;
+  margin-bottom: 16px;
+}
+
+.btn-boost {
+  width: 100%;
+}
+
+.boost-used {
+  background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+  padding: 16px;
+  text-align: center;
+  font-weight: 600;
+  font-size: 18px;
+}
+
+.events-feed {
+  margin: 32px 0;
+  padding: 24px;
+}
+
+.events-feed h3 {
+  font-size: 24px;
+  margin-bottom: 16px;
+}
+
+.events-list {
+  max-height: 400px;
+  overflow-y: auto;
+}
+
+.no-events {
+  text-align: center;
+  padding: 32px;
+  opacity: 0.5;
+}
+
+.event-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px;
+  margin-bottom: 8px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 8px;
+  border-left: 3px solid #38ef7d;
+}
+
+.event-minute {
+  font-weight: 600;
+  font-family: 'Courier New', monospace;
+  min-width: 40px;
+}
+
+.event-icon {
+  font-size: 20px;
+}
+
+.event-description {
+  flex: 1;
+}
+
+@media (max-width: 768px) {
+  .scoreboard {
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .vs {
+    transform: rotate(90deg);
+  }
+
+  .score {
+    font-size: 48px;
+  }
+
+  .winner-banner {
+    font-size: 24px;
+  }
+
+  .winner-banner.loss {
+    font-size: 18px;
+  }
+}
