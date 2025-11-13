@@ -156,6 +156,17 @@ app.post('/api/leagues/:leagueId/draft/start', async (req, res) => {
   res.json({ draft });
 });
 
+// Get draft details
+app.get('/api/drafts/:draftId', (req, res) => {
+  const draft = drafts.get(req.params.draftId);
+
+  if (!draft) {
+    return res.status(404).json({ error: 'Draft not found' });
+  }
+
+  res.json({ draft });
+});
+
 // Make draft pick
 app.post('/api/drafts/:draftId/pick', (req, res) => {
   const { playerId, userId } = req.body;
@@ -209,6 +220,27 @@ app.post('/api/drafts/:draftId/pick', (req, res) => {
         squad: userPicks
       });
     });
+
+    // Auto-create match between first two players
+    if (draft.leagueId && draft.players.length >= 2) {
+      const league = leagues.get(draft.leagueId);
+      if (league) {
+        const matchId = uuidv4();
+        const match = {
+          id: matchId,
+          type: 'LEAGUE',
+          leagueId: draft.leagueId,
+          homeUserId: draft.players[0],
+          awayUserId: draft.players[1],
+          status: 'READY',
+          created: new Date()
+        };
+        matches.set(matchId, match);
+        league.currentMatchId = matchId;
+        league.status = 'ACTIVE';
+        draft.matchId = matchId;
+      }
+    }
   }
 
   res.json({ draft });

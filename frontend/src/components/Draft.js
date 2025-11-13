@@ -23,8 +23,9 @@ function Draft({ userId, draft, onNavigate, onDraftComplete }) {
         const response = await api.get(`/api/drafts/${currentDraft.id}`);
         setCurrentDraft(response.data.draft);
 
-        if (response.data.draft.status === 'COMPLETED') {
-          onDraftComplete({ draftId: currentDraft.id });
+        if (response.data.draft.status === 'COMPLETED' && response.data.draft.matchId) {
+          clearInterval(interval);
+          onDraftComplete({ id: response.data.draft.matchId, leagueId: response.data.draft.leagueId });
         }
 
         // Update my picks

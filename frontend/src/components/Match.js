@@ -1,12 +1,30 @@
 import React, { useState, useEffect } from 'react';
 import './Match.css';
 import { getSocket } from '../services/socket';
+import api from '../services/api';
 
 function Match({ userId, match, onNavigate, onMatchEnd }) {
   const [simulation, setSimulation] = useState(null);
   const [events, setEvents] = useState([]);
   const [boostUsed, setBoostUsed] = useState(false);
   const [selectedBoost, setSelectedBoost] = useState(null);
+  const [matchStarted, setMatchStarted] = useState(false);
+
+  // Auto-start match when component loads
+  useEffect(() => {
+    const startMatch = async () => {
+      if (!matchStarted && match.status !== 'LIVE') {
+        try {
+          await api.post(`/matches/${match.id}/start`);
+          setMatchStarted(true);
+        } catch (error) {
+          console.error('Error starting match:', error);
+        }
+      }
+    };
+
+    startMatch();
+  }, [match.id, match.status, matchStarted]);
 
   useEffect(() => {
     const socket = getSocket();
@@ -41,16 +59,18 @@ function Match({ userId, match, onNavigate, onMatchEnd }) {
   const handleUseBoost = async (boostType) => {
     if (boostUsed || !simulation) return;
 
-    const socket = getSocket();
-    socket.emit('use-boost', {
-      matchId: match.id,
-      team: 'home', // Simplified for MVP
-      boostType,
-      minute: simulation.currentMinute
-    });
+    try {
+      await api.post(`/matches/${match.id}/boost`, {
+        team: 'home', // Simplified for MVP
+        boostType,
+        minute: simulation.currentMinute
+      });
 
-    setBoostUsed(true);
-    setSelectedBoost(null);
+      setBoostUsed(true);
+      setSelectedBoost(null);
+    } catch (error) {
+      console.error('Error using boost:', error);
+    }
   };
 
   const boosts = [
